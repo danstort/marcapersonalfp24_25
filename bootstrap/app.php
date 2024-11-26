@@ -15,6 +15,9 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
         //$middleware->appendToGroup('web', MyMiddleware::class);
+        $middleware->alias([
+            'id_mayor_de_10' => MyMiddleware::class
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
