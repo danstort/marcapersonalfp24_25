@@ -12,7 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('estudiantes', function (Blueprint $table) {
-            $table->string('ciclo', 100)->nullable()->after('nombre');
+            $table->string('ciclo', 100)->nullable();
+            $table->string('apellidos', 100)->nullable()->after('nombre');
+            $table->string('direccion', 100)->nullable()->after('apellidos');
+            $table->integer('votos')->nullable()->after('direccion');
+            $table->boolean('confirmado');
+
         });
     }
 
@@ -23,6 +28,12 @@ return new class extends Migration
     {
         Schema::table('estudiantes', function (Blueprint $table) {
             $table->dropColumn('ciclo');
+            $table->dropColumn('apellidos');
+            $table->dropColumn('direccion');
+            $table->dropColumn('votos');
+            $table->dropColumn('confirmado');
+
         });
     }
 };
+
