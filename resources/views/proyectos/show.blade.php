@@ -2,6 +2,9 @@
 
 @section('content')
 
+@php
+    $metadatos = unserialize($proyecto['metadatos']);
+@endphp
 
     <div class="row m-4">
 
@@ -12,7 +15,7 @@
         </div>
         <div class="col-sm-8">
 
-            <h3><strong>Nombre: </strong>{{ $proyecto['nombre'] }}</h3>
+            <h3><strong>Nombre: </strong>{{ $proyecto->nombre }}</h3>
             <h4><strong>Dominio: </strong>
                 <a href="http://github.com/2DAW-CarlosIII/{{ $proyecto['dominio'] }}">
                     http://github.com/2DAW-CarlosIII/{{ $proyecto['dominio'] }}
@@ -21,20 +24,20 @@
             <h4><strong>Docente: </strong>{{ $proyecto['docente_id'] }}</h4>
             <p><strong>Metadatos: </strong>
                 <ul>
-                    @foreach ($proyecto['metadatos'] as $indice => $metadato)
+                    @foreach($metadatos as $indice => $metadato)
                         <li>{{ $indice }}: {{ $metadato }}</li>
                     @endforeach
                 </ul>
             </p>
             <p><strong>Estado: </strong>
-                @if($proyecto['metadatos']['calificacion'] >= 5)
+                @if(isset($metadatos['calificacion']) && $metadatos['calificacion'] >= 5)
                     Proyecto aprobado
                 @else
                     Proyecto suspenso
                 @endif
             </p>
 
-            @if($proyecto['metadatos']['calificacion'] >= 5)
+            @if(isset($metadatos['calificacion']) && $metadatos['calificacion'] >= 5)
                 <a class="btn btn-danger" href="#">Suspender proyecto</a>
             @else
                 <a class="btn btn-primary" href="#">Aprobar proyecto</a>
@@ -47,9 +50,7 @@
                 Volver al listado
             </a>
 
-
         </div>
     </div>
 
 @endsection
-
