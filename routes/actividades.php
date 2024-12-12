@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ActividadController;
 
+
 Route::group(['prefix' => 'actividades'], function(){
     Route::get('/', [ActividadController::class, 'getIndex']);
 

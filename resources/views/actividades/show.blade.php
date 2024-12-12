@@ -12,10 +12,10 @@
         </div>
         <div class="col-sm-8">
 
-            <h3><strong>Docente: </strong>{{ $actividad['docente_id'] }}</h3>
+            <h3><strong>Docente: </strong>{{ $actividad->docente_id }}</h3>
             <h4><strong>Insignia: </strong>
-                <a href="{{ $actividad['insignia'] }}">
-                    {{ $actividad['insignia'] }}
+                <a href="{{ $actividad->insignia }}">
+                    {{ $actividad->insignia }}
                 </a>
             </h4>
             <a class="btn btn-warning" href="{{ action([App\Http\Controllers\ActividadController::class, 'getEdit'], ['id' => $id]) }}">

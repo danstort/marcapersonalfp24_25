@@ -41,10 +41,11 @@
             @else
                 <a class="btn btn-primary" href="#">Aprobar proyecto</a>
             @endif
-            <a class="btn btn-warning" href="{{ action([App\Http\Controllers\ProyectosController::class, 'getEdit'], ['id' => $id]) }}">
+            <a class="btn btn-warning" href="{{ action([App\Http\Controllers\ProyectosController::class, 'getEdit'], ['id' => $proyecto->id]) }}">
                 <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                 Editar proyecto
             </a>
+
             <a class="btn btn-outline-info" href="{{ action([App\Http\Controllers\ProyectosController::class, 'getIndex']) }}">
                 Volver al listado
             </a>
