@@ -10,4 +10,10 @@ class Actividad extends Model
     use HasFactory;
 
     protected $table = 'actividades';
+
+    protected $fillable = [
+        'id',
+        'docente_id',
+        'insignia'
+    ];
 }

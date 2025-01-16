@@ -3,19 +3,19 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\CicloResource;
-use App\Models\Ciclo;
+use App\Http\Resources\UserResource;
+use App\Models\User;
 use Illuminate\Http\Request;
 
-class CicloController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index(Request $request)
     {
-        return CicloResource::collection(
-            Ciclo::orderBy($request->_sort ?? 'id', $request->_order ?? 'asc')
+        return UserResource::collection(
+            User::orderBy($request->_sort ?? 'id', $request->_order ?? 'asc')
             ->paginate($request->perPage)
         );
     }
@@ -25,39 +25,39 @@ class CicloController extends Controller
      */
     public function store(Request $request)
     {
-        $ciclo = json_decode($request->getContent(), true);
+        $user = json_decode($request->getContent(), true);
 
-        $ciclo = Ciclo::create($ciclo);
+        $user = User::create($user);
 
-        return new CicloResource($ciclo);
+        return new UserResource($user);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Ciclo $ciclo)
+    public function show(User $user)
     {
-        return new CicloResource($ciclo);
+        return new UserResource($user);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Ciclo $ciclo)
+    public function update(Request $request, User $user)
     {
-        $cicloData = json_decode($request->getContent(), true);
-        $ciclo->update($cicloData);
+        $userData = json_decode($request->getContent(), true);
+        $user->update($userData);
 
-        return new CicloResource($ciclo);
+        return new UserResource($user);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Ciclo $ciclo)
+    public function destroy(User $user)
     {
         try {
-            $ciclo->delete();
+            $user->delete();
             return response()->json(null, 204);
         } catch (\Exception $e) {
             return response()->json([

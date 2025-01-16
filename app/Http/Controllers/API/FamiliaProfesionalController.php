@@ -12,7 +12,11 @@ class FamiliaProfesionalController extends Controller
     /**
      * Display a listing of the resource.
      */
+<<<<<<< HEAD
     public function index(request $request)
+=======
+    public function index(Request $request)
+>>>>>>> 6b46599a89b62efe7ab07ca000b22924652271a3
     {
         return FamiliaProfesionalResource::collection(
             FamiliaProfesional::orderBy($request->_sort ?? 'id', $request->_order ?? 'asc')
@@ -25,11 +29,11 @@ class FamiliaProfesionalController extends Controller
      */
     public function store(Request $request)
     {
-        $familiaProfesional = json_decode($request->getContent(), true);
+        $familiaProfesional = json_decode($request->getContent(),true);
 
         $familiaProfesional = FamiliaProfesional::create($familiaProfesional);
 
-        return new FamiliaProfesionalResource($familiaProfesional);
+        return new FamiliaProfesionalResource(($familiaProfesional));
     }
 
     /**
