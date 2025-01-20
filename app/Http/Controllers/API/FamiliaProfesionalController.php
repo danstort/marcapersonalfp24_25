@@ -12,11 +12,8 @@ class FamiliaProfesionalController extends Controller
     /**
      * Display a listing of the resource.
      */
-<<<<<<< HEAD
+
     public function index(request $request)
-=======
-    public function index(Request $request)
->>>>>>> 6b46599a89b62efe7ab07ca000b22924652271a3
     {
         return FamiliaProfesionalResource::collection(
             FamiliaProfesional::orderBy($request->_sort ?? 'id', $request->_order ?? 'asc')

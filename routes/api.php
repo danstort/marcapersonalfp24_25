@@ -1,16 +1,13 @@
 <?php
 
 use App\Http\Controllers\API\CicloController;
-<<<<<<< HEAD
-use App\Http\Controllers\API\FamiliaProfesionalController;
-=======
+
 use App\Http\Controllers\API\ReconocimientoController;
 use App\Http\Controllers\API\ActividadController;
 use App\Http\Controllers\API\FamiliaProfesionalController;
 use App\Http\Controllers\API\ProyectoController;
 use App\Http\Controllers\API\CurriculoController;
 use App\Http\Controllers\API\UserController;
->>>>>>> 6b46599a89b62efe7ab07ca000b22924652271a3
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Psr\Http\Message\ServerRequestInterface;
