@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\EmpresaResource;
 use App\Models\Empresa;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
 
 class EmpresaController extends Controller
 {
@@ -20,6 +22,16 @@ class EmpresaController extends Controller
             $request->attributes->get('queryWithParameters') :
             Empresa::query();
         return EmpresaResource::collection($query->paginate($request->perPage));
+    }
+
+    public function indexEmpresasCount()
+    {
+        $empresas = DB::table('empresas')
+
+            ->select('empresas.*')
+            ->get()->count();
+
+        return response()->json(['count' => $empresas]);
     }
 
     /**

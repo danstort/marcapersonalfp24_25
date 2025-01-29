@@ -40,6 +40,7 @@ Route::prefix('v1')->group(function () {
     Route::apiResource('idiomas', IdiomaController::class);
     Route::get('proyectos/{proyectoId}/ciclos', [ProyectosCiclosController::class, 'indexProyectosCiclos']);
     Route::get('ciclos/{cicloId}/proyectos', [ProyectosCiclosController::class, 'indexCiclosProyectos']);
+    Route::get('empresas/count', [EmpresaController::class, 'indexEmpresasCount']);
     Route::post('proyectos/{proyectoId}/ciclos', [ProyectosCiclosController::class, 'storeProyectoCiclo']);
     Route::apiResource('empresas', EmpresaController::class);
 });
