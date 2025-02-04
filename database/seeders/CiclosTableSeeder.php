@@ -23,6 +23,7 @@ class CiclosTableSeeder extends Seeder
                 // 'familia_id' => array_search($ciclo['codFamilia'], $codigosFamilias) + 1,
                 'grado' => $ciclo['grado'],
                 'nombre' => $ciclo['nombre'],
+                'familia_id' => DB::table('familias_profesionales')->where('codigo', $ciclo['codFamilia'])->value('id'),
             ]);
         }
         $this->command->info('¡Tabla ciclos inicializada con datos!');
