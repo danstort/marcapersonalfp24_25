@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\ParticipanteProyecto;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -15,20 +16,19 @@ class ParticipantesProyectosTableSeeder extends Seeder
     {
         DB::table('participantes_proyectos')->truncate();
 
-        $combinaciones = [];
+        $users = User::all();
 
-        ParticipanteProyecto::factory(10)->make()->each(function ($participante) use (&$combinaciones) {
-            $key = "{$participante->user_id}-{$participante->proyecto_id}";
+        foreach ($users as $user) {
+            $numRandom = rand(0, 2);
 
-
-            while (isset($combinaciones[$key])) {
-                $participante->user_id = rand(1, 10);
-                $participante->proyecto_id = rand(1, 10);
-                $key = "{$participante->user_id}-{$participante->proyecto_id}";
+            for ($i = 0; $i < $numRandom; $i++) {
+                $participanteProyecto = new ParticipanteProyecto();
+                $participanteProyecto->user_id = $user->id;
+                $participanteProyecto->proyecto_id = rand(1, 10);
+                $participanteProyecto->save();
             }
 
-            $combinaciones[$key] = true;
-            $participante->save();
-        });
+            
+        }
     }
 }
