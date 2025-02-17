@@ -4,6 +4,10 @@ namespace App\Providers;
 
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Support\ServiceProvider;
+use App\Models\Curriculo;
+use App\Models\User;
+use App\Policies\CurriculoPolicy;
+use Illuminate\Support\Facades\Gate;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,5 +27,11 @@ class AppServiceProvider extends ServiceProvider
         ResetPassword::createUrlUsing(function (object $notifiable, string $token) {
             return config('app.frontend_url')."/password-reset/$token?email={$notifiable->getEmailForPasswordReset()}";
         });
+        Gate::before(function (User $user, string $ability){
+            if($user->isAdministrator()){
+                return true;
+            }
+        });
+        Gate::policy(Curriculo::class, CurriculoPolicy::class);
     }
 }
