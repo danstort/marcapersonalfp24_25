@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
 
 class UsersTableSeeder extends Seeder
@@ -21,8 +22,15 @@ class UsersTableSeeder extends Seeder
                 User::factory()->create([
                 'name' => 'Test User',
                 'email' => 'test@example.com',
+
                 ]);
             }
+        }
+
+        foreach(User::all() as $user) {
+            $user->update([
+                'sobre_mi' => Str::random(10),
+            ]);
         }
     }
 }

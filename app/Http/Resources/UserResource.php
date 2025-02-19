@@ -20,8 +20,30 @@ class UserResource extends JsonResource
             ['actividades_docente' => $this->actividadesComoDocente],
             ['competencias' => $this->competencias],
             ['curriculo' => $this->curriculo],
-            ['ciclos' => $this->ciclos],
-            ['proyectos' => $this->proyectos]
+            [
+                'ciclos' => $this->ciclos->map(function ($ciclo) {
+                    return [
+                        'id' => $ciclo->id,
+                        'codCiclo' => $ciclo->codCiclo,
+                        'nombre' => $ciclo->nombre,
+                        'familia_profesional' => $ciclo->familiaProfesional,
+                    ];
+                }),
+
+            ],
+            ['proyectos' => $this->proyectos],
+            [
+                'idiomas' => $this->idiomas->map(function ($idioma) {
+                    return [
+
+                        'alpha2' => $idioma->alpha2,
+                        'native_name' => $idioma->native_name,
+                        'nivel' => $idioma->pivot->nivel,
+                        'certificado' => $idioma->pivot->certificado,
+                    ];
+                }),
+            ],
+
         );
     }
 }

@@ -31,7 +31,8 @@ class CicloResource extends JsonResource
         return array_merge(
             $padre,
             $familia,
-            ['proyectos' => $this->proyectos]
+            ['proyectos' => $this->proyectos],
+            ['familia_profesional' => $this->familiaProfesional]
         );
     }
 }

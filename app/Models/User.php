@@ -25,6 +25,7 @@ class User extends Authenticatable
         'apellidos',
         'email',
         'password',
+        'sobre_mi',
     ];
 
     /**
@@ -38,7 +39,10 @@ class User extends Authenticatable
     ];
 
     public static $filterColumns = [
-        'name', 'nombre', 'apellidos', 'email',
+        'name',
+        'nombre',
+        'apellidos',
+        'email',
     ];
 
     /**
@@ -71,10 +75,10 @@ class User extends Authenticatable
             ->withPivot('documento', 'estudiante_id');
     }
 
-    public function competencias ()
+    public function competencias()
     {
         return $this->belongsToMany(Competencia::class, 'users_competencias')
-                ->withPivot('docente_validador');
+            ->withPivot('docente_validador');
     }
 
     public function ciclos(): BelongsToMany
@@ -86,6 +90,11 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Proyecto::class, 'participantes_proyectos', 'user_id', 'proyecto_id');
     }
+
+    public function idiomas(): BelongsToMany
+   {
+        return $this->belongsToMany(Idiomas::class, 'user_idiomas', 'user_id', 'idioma_id')->withPivot(['nivel', 'certificado']);
+   }
 
     public function isAdministrator(): bool
     {
