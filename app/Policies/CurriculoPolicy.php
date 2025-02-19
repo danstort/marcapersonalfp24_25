@@ -37,7 +37,7 @@ class CurriculoPolicy
      */
     public function update(User $user, Curriculo $curriculo): bool
     {
-        return $user->id === $curriculo->user_id;
+        return $user->id === $curriculo->user_id || $user->isAdministrator();
 
     }
 

@@ -31,6 +31,7 @@ class AppServiceProvider extends ServiceProvider
             if($user->isAdministrator()){
                 return true;
             }
+            
         });
         Gate::policy(Curriculo::class, CurriculoPolicy::class);
     }
