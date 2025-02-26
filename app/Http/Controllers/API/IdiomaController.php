@@ -6,10 +6,21 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\IdiomaResource;
 use App\Models\Idiomas;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
+use Illuminate\Support\Facades\Gate;
 
-class IdiomaController extends Controller
+class IdiomaController extends Controller implements HasMiddleware
 {
     public $modelclass = Idiomas::class;
+
+    public static function middleware(): array
+    {
+        return [
+            new Middleware('auth:sanctum', except: ['index', 'show']),
+        ];
+    }
+
 
     /**
      * Display a listing of the resource.
@@ -29,6 +40,8 @@ class IdiomaController extends Controller
      */
     public function store(Request $request)
     {
+        Gate::authorize('create', Idiomas::class);
+
         $idioma = json_decode($request->getContent(), true);
 
         $idioma = Idiomas::create($idioma);
@@ -50,6 +63,8 @@ class IdiomaController extends Controller
      */
     public function update(Request $request, Idiomas $idioma)
     {
+        Gate::authorize('update', $idioma);
+
         $cicloData = json_decode($request->getContent(), true);
         $idioma->update($cicloData);
 
@@ -61,6 +76,7 @@ class IdiomaController extends Controller
      */
     public function destroy(Idiomas $idioma)
     {
+        Gate::authorize('delete', $idioma);
         try {
             $idioma->delete();
             return response()->json(null, 204);

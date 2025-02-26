@@ -6,10 +6,25 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\FamiliaProfesionalResource;
 use App\Models\FamiliaProfesional;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
+use Illuminate\Support\Facades\Gate;
 
-class FamiliaProfesionalController extends Controller
+
+
+class FamiliaProfesionalController extends Controller implements HasMiddleware
 {
     public $modelclass = FamiliaProfesional::class;
+
+    /**
+     * Get the middleware that should be assigned to the controller.
+     */
+    public static function middleware(): array
+    {
+        return [
+            new Middleware('auth:sanctum', except: ['index', 'show']),
+        ];
+    }
 
     /**
      * Display a listing of the resource.
@@ -27,6 +42,8 @@ class FamiliaProfesionalController extends Controller
      */
     public function store(Request $request)
     {
+        Gate::authorize('create', FamiliaProfesional::class);
+
         $familiaProfesional = json_decode($request->getContent(),true);
 
         $familiaProfesional = FamiliaProfesional::create($familiaProfesional);
@@ -47,6 +64,8 @@ class FamiliaProfesionalController extends Controller
      */
     public function update(Request $request, FamiliaProfesional $familiaProfesional)
     {
+        Gate::authorize('update', $familiaProfesional);
+
         $familiaProfesionalData = json_decode($request->getContent(), true);
         $familiaProfesional->update($familiaProfesionalData);
 
@@ -58,6 +77,7 @@ class FamiliaProfesionalController extends Controller
      */
     public function destroy(FamiliaProfesional $familiaProfesional)
     {
+        Gate::authorize('delete', $familiaProfesional);
         try {
             $familiaProfesional->delete();
             return response()->json(null, 204);
